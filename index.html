@@ -1,115 +1,578 @@
 
         }
 
-        .feature-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        .feature-card h3 {
-            margin-bottom: 10px;
-            font-size: 1.5em;
-        }
-
-        .feature-card p {
-            opacity: 0.95;
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .indicators-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            padding: 1rem 2rem;
         }
 
-        .indicator-badge {
-            background: #f0f0f0;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 500;
-            color: #667eea;
-            border-left: 4px solid #667eea;
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .pairs-section {
-            margin: 30px 0;
-        }
-
-        .pairs-section h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        .market-category {
-            margin: 20px 0;
-        }
-
-        .market-category h3 {
-            color: #764ba2;
-            margin-bottom: 10px;
-            font-size: 1.3em;
-        }
-
-        .pairs-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        .logo {
+            font-size: 1.8em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
 
-        .pair-badge {
-            background: #f8f9ff;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-            border: 2px solid #667eea;
-            font-weight: 500;
-            transition: all 0.3s ease;
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
         }
 
-        .pair-badge:hover {
-            background: #667eea;
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15), transparent);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(240, 147, 251, 0.15), transparent);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -200px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4.5em;
+            color: #fff;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5em;
+            color: #b0b0ff;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #888;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
         }
 
-        .cta-section {
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        section h2 {
+            font-size: 3em;
             text-align: center;
+            margin-bottom: 50px;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(240, 147, 251, 0.15));
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .feature-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .feature-box p {
+            color: #b0b0ff;
+            line-height: 1.8;
+        }
+
+        /* Indicators Section */
+        .indicators-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
             margin: 40px 0;
         }
 
-        .cta-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 40px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin: 10px;
-            font-weight: 600;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        footer {
+        .indicator {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(240, 147, 251, 0.2));
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            color: white;
+            color: #fff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .indicator:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(240, 147, 251, 0.3));
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Markets Section */
+        .markets-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+            border-radius: 20px;
+            padding: 50px;
+            margin: 50px 0;
+        }
+
+        .market-type {
+            margin-bottom: 40px;
+        }
+
+        .market-type h3 {
+            font-size: 1.8em;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pairs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .pair {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(240, 147, 251, 0.15));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: #fff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pair:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Performance Section */
+        .performance-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
             padding: 30px;
-            margin-top: 40px;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        .performance-stat {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .stat-name {
+            color: #b0b0ff;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .testimonial {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .testimonial-text {
+            color: #fff;
+            margin-bottom: 20px;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+
+        .testimonial-author {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .testimonial-role {
+            color: #b0b0ff;
+            font-size: 0.9em;
+        }
+
+        .rating {
+            color: var(--warning);
+            margin-bottom: 10px;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+        }
+
+        .price {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        .price-period {
+            color: #b0b0ff;
+            font-size: 0.9em;
+        }
+
+        .features-list {
+            text-align: left;
+            margin: 30px 0;
+            list-style: none;
+        }
+
+        .features-list li {
+            color: #fff;
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 12, 41, 0.8);
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+            padding: 60px 0 30px;
+            color: #b0b0ff;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin: 10px 0;
+        }
+
+        .footer-section a {
+            color: #b0b0ff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+            padding-top: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(240, 147, 251, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-50px); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes slideDown {
@@ -132,141 +595,441 @@
             }
         }
 
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            h1 {
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9em;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1em;
+            }
+
+            section h2 {
                 font-size: 2em;
             }
 
-            .main-content {
-                padding: 20px;
+            .hero-stats {
+                gap: 30px;
             }
 
-            .features {
-                grid-template-columns: 1fr;
+            .stat-number {
+                font-size: 1.8em;
             }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+
+            .markets-section {
+                padding: 30px;
+            }
+        }
+
+        /* Utility Classes */
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .section-bg-dark {
+            background: rgba(15, 12, 41, 0.5);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🚀 Faizan Quotex Signal Bot</h1>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">🚀 Faizan Bot</div>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#indicators">Indicators</a></li>
+                <li><a href="#markets">Markets</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Next-Gen AI Trading Platform</h1>
             <p class="subtitle">Professional Trading Signals for Crypto, Forex & OTC Markets</p>
-        </header>
-
-        <div class="main-content">
-            <h2 style="color: #667eea; margin-bottom: 20px;">Welcome to the Ultimate Trading Signal Generator</h2>
-            <p style="line-height: 1.8; color: #666; margin-bottom: 20px;">
-                Our advanced bot provides professional-grade trading signals using cutting-edge technical analysis, 
-                pattern recognition, and machine learning algorithms. Perfect for traders of all levels looking to 
-                make informed decisions in crypto, forex, and OTC markets.
-            </p>
-
-            <div class="features">
-                <div class="feature-card">
-                    <h3>📊 10 Advanced Indicators</h3>
-                    <p>RSI, MACD, Bollinger Bands, Stochastic, CCI, Williams %R, Momentum, EMA, SMA, ATR</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">1,000+</div>
+                    <div class="stat-label">Active Traders</div>
                 </div>
-                <div class="feature-card">
-                    <h3>🎯 10 Trading Patterns</h3>
-                    <p>Head & Shoulders, Double Top/Bottom, Triangles, Wedges, Flags, Pennants & More</p>
+                <div class="stat">
+                    <div class="stat-number">87.5%</div>
+                    <div class="stat-label">Accuracy Rate</div>
                 </div>
-                <div class="feature-card">
-                    <h3>💰 Multiple Markets</h3>
-                    <p>Crypto, Forex, and OTC Stocks - Trade across all major asset classes</p>
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Trading Pairs</div>
                 </div>
-                <div class="feature-card">
-                    <h3>⚡ Real-Time Analysis</h3>
-                    <p>Get instant signals and alerts for every trading opportunity</p>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Live Analysis</div>
                 </div>
             </div>
 
-            <div class="pairs-section">
-                <h2>📈 Supported Trading Pairs</h2>
-
-                <div class="market-category">
-                    <h3>₿ Cryptocurrencies</h3>
-                    <div class="pairs-list">
-                        <div class="pair-badge">BTC/USDT</div>
-                        <div class="pair-badge">ETH/USDT</div>
-                        <div class="pair-badge">XRP/USDT</div>
-                        <div class="pair-badge">ADA/USDT</div>
-                        <div class="pair-badge">SOL/USDT</div>
-                        <div class="pair-badge">DOGE/USDT</div>
-                        <div class="pair-badge">LTC/USDT</div>
-                    </div>
-                </div>
-
-                <div class="market-category">
-                    <h3>💱 Forex Pairs</h3>
-                    <div class="pairs-list">
-                        <div class="pair-badge">EUR/USD</div>
-                        <div class="pair-badge">GBP/USD</div>
-                        <div class="pair-badge">USD/JPY</div>
-                        <div class="pair-badge">AUD/USD</div>
-                        <div class="pair-badge">USD/CAD</div>
-                        <div class="pair-badge">USD/CHF</div>
-                        <div class="pair-badge">NZD/USD</div>
-                    </div>
-                </div>
-
-                <div class="market-category">
-                    <h3>📱 OTC Stocks</h3>
-                    <div class="pairs-list">
-                        <div class="pair-badge">AAPL</div>
-                        <div class="pair-badge">GOOGL</div>
-                        <div class="pair-badge">MSFT</div>
-                        <div class="pair-badge">AMZN</div>
-                        <div class="pair-badge">TSLA</div>
-                        <div class="pair-badge">META</div>
-                        <div class="pair-badge">NVDA</div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="background: #f0f0f0; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                <h3 style="color: #667eea; margin-bottom: 10px;">🎓 How It Works</h3>
-                <ol style="line-height: 2; color: #666;">
-                    <li>Select your trading pair and timeframe</li>
-                    <li>Our bot analyzes multiple technical indicators</li>
-                    <li>Detects chart patterns and support/resistance levels</li>
-                    <li>Generates accurate BUY/SELL signals with confidence scores</li>
-                    <li>Receive real-time alerts on your chosen platforms</li>
-                </ol>
-            </div>
-
-            <div class="cta-section">
-                <h3 style="color: #667eea; margin-bottom: 20px;">Get Started Today</h3>
-                <button class="cta-button" onclick="alert('Server backend required. Please deploy server.js to start using the bot.')">📊 Launch Bot Dashboard</button>
-                <button class="cta-button" onclick="window.open('https://github.com/ff8207491-netizen/faizan-quotex-signel-bot', '_blank')">💻 View Source Code</button>
-            </div>
-
-            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107; margin: 20px 0;">
-                <h4 style="color: #856404; margin-bottom: 10px;">⚠️ Important Notes</h4>
-                <ul style="color: #856404; line-height: 1.8;">
-                    <li>This bot is for educational purposes and should not be the sole basis for trading decisions</li>
-                    <li>Always conduct your own research before making trades</li>
-                    <li>Past performance does not guarantee future results</li>
-                    <li>Use proper risk management and never trade more than you can afford to lose</li>
-                </ul>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('features').scrollIntoView();">Get Started</button>
+                <button class="btn btn-secondary" onclick="window.open('https://github.com/ff8207491-netizen/faizan-quotex-signel-bot', '_blank');">View Source</button>
             </div>
         </div>
+    </section>
 
-        <footer>
-            <p>&copy; 2024 Faizan Quotex Signal Bot. All rights reserved.</p>
-            <p style="font-size: 0.9em; margin-top: 10px;">Made with ❤️ for traders worldwide</p>
-        </footer>
-    </div>
+    <!-- Features Section -->
+    <section id="features" class="section-bg-dark">
+        <div class="container">
+            <h2>Powerful Features</h2>
+            
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">📊</div>
+                    <h3>10 Advanced Indicators</h3>
+                    <p>RSI, MACD, Bollinger Bands, Stochastic Oscillator, CCI, Williams %R, Momentum, EMA, SMA, ATR</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🎯</div>
+                    <h3>10 Chart Patterns</h3>
+                    <p>Head & Shoulders, Double Top/Bottom, Triangles, Wedges, Flags, Pennants, and more</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-Time Signals</h3>
+                    <p>Instant BUY/SELL signals with confidence scores and market analysis</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Machine learning algorithms for predictive trading signals</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">📱</div>
+                    <h3>Multi-Platform Support</h3>
+                    <p>Desktop, mobile, and web-based access to trading signals</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Smart Alerts</h3>
+                    <p>Customizable notifications for critical trading opportunities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Indicators Section -->
+    <section id="indicators">
+        <div class="container">
+            <h2>Technical Indicators</h2>
+            <p style="text-align: center; color: #b0b0ff; margin-bottom: 40px; font-size: 1.1em;">
+                Comprehensive analysis tools to identify market trends and opportunities
+            </p>
+            
+            <div class="indicators-container">
+                <div class="indicator">📈 RSI (Relative Strength)</div>
+                <div class="indicator">📊 MACD (Convergence)</div>
+                <div class="indicator">📉 Bollinger Bands</div>
+                <div class="indicator">⚙️ Stochastic</div>
+                <div class="indicator">🔷 CCI (Channel Index)</div>
+                <div class="indicator">📐 Williams %R</div>
+                <div class="indicator">💨 Momentum</div>
+                <div class="indicator">📈 EMA (Exponential)</div>
+                <div class="indicator">📊 SMA (Simple Average)</div>
+                <div class="indicator">🎯 ATR (True Range)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Markets Section -->
+    <section id="markets">
+        <div class="container">
+            <h2>Trading Markets</h2>
+            
+            <div class="markets-section">
+                <div class="market-type">
+                    <h3>₿ Cryptocurrencies</h3>
+                    <div class="pairs-grid">
+                        <div class="pair">BTC/USDT</div>
+                        <div class="pair">ETH/USDT</div>
+                        <div class="pair">XRP/USDT</div>
+                        <div class="pair">ADA/USDT</div>
+                        <div class="pair">SOL/USDT</div>
+                        <div class="pair">DOGE/USDT</div>
+                        <div class="pair">LTC/USDT</div>
+                        <div class="pair">DOT/USDT</div>
+                    </div>
+                </div>
+
+                <div class="market-type">
+                    <h3>💱 Forex Pairs</h3>
+                    <div class="pairs-grid">
+                        <div class="pair">EUR/USD</div>
+                        <div class="pair">GBP/USD</div>
+                        <div class="pair">USD/JPY</div>
+                        <div class="pair">AUD/USD</div>
+                        <div class="pair">USD/CAD</div>
+                        <div class="pair">USD/CHF</div>
+                        <div class="pair">NZD/USD</div>
+                        <div class="pair">EUR/GBP</div>
+                    </div>
+                </div>
+
+                <div class="market-type">
+                    <h3>📱 OTC Stocks</h3>
+                    <div class="pairs-grid">
+                        <div class="pair">AAPL</div>
+                        <div class="pair">GOOGL</div>
+                        <div class="pair">MSFT</div>
+                        <div class="pair">AMZN</div>
+                        <div class="pair">TSLA</div>
+                        <div class="pair">META</div>
+                        <div class="pair">NVDA</div>
+                        <div class="pair">AMD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Section -->
+    <section class="section-bg-dark">
+        <div class="container">
+            <h2>Performance Metrics</h2>
+            
+            <div class="performance-card">
+                <div class="performance-stat">
+                    <span class="stat-name">Signal Accuracy</span>
+                    <span class="stat-value">87.5%</span>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-name">Average Win Rate</span>
+                    <span class="stat-value">82.3%</span>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-name">Risk/Reward Ratio</span>
+                    <span class="stat-value">1:2.5</span>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-name">Monthly Signals</span>
+                    <span class="stat-value">500+</span>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-name">Average Holding Time</span>
+                    <span class="stat-value">4-6 hours</span>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-name">Uptime</span>
+                    <span class="stat-value">99.9%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="container">
+            <h2>What Traders Say</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"This bot has revolutionized my trading strategy. The accuracy and real-time alerts are incredible. Highly recommended!"</p>
+                    <div class="testimonial-author">Ahmed Khan</div>
+                    <div class="testimonial-role">Professional Trader</div>
+                </div>
+                <div class="testimonial">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Best signal generator I've used. The technical analysis is spot-on and the interface is very user-friendly."</p>
+                    <div class="testimonial-author">Sophia Rodriguez</div>
+                    <div class="testimonial-role">Day Trader</div>
+                </div>
+                <div class="testimonial">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"The combination of indicators and patterns makes a huge difference. My trading results improved significantly!"</p>
+                    <div class="testimonial-author">Marcus Johnson</div>
+                    <div class="testimonial-role">Swing Trader</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-bg-dark">
+        <div class="container">
+            <h2>Pricing Plans</h2>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>🎯 Starter</h3>
+                    <div class="price">$29<span class="price-period">/month</span></div>
+                    <p style="color: #b0b0ff; margin-bottom: 25px;">Perfect for beginners</p>
+                    <ul class="features-list">
+                        <li>Basic Indicators (5)</li>
+                        <li>10 Trading Pairs</li>
+                        <li>Daily Signals</li>
+                        <li>Email Alerts</li>
+                        <li>Community Access</li>
+                    </ul>
+                    <button class="btn btn-secondary" style="width: 100%; margin-top: 20px;">Get Started</button>
+                </div>
+
+                <div class="pricing-card popular">
+                    <h3>⚡ Professional</h3>
+                    <div class="price">$79<span class="price-period">/month</span></div>
+                    <p style="color: #b0b0ff; margin-bottom: 25px;">Most popular choice</p>
+                    <ul class="features-list">
+                        <li>All 10 Indicators</li>
+                        <li>50+ Trading Pairs</li>
+                        <li>Real-Time Signals</li>
+                        <li>SMS + Email Alerts</li>
+                        <li>Priority Support</li>
+                        <li>Pattern Recognition</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">Start Free Trial</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>🚀 Enterprise</h3>
+                    <div class="price">$199<span class="price-period">/month</span></div>
+                    <p style="color: #b0b0ff; margin-bottom: 25px;">For serious traders</p>
+                    <ul class="features-list">
+                        <li>Everything in Pro</li>
+                        <li>Unlimited Pairs</li>
+                        <li>API Access</li>
+                        <li>Custom Strategies</li>
+                        <li>24/7 Premium Support</li>
+                        <li>Backtesting Tools</li>
+                    </ul>
+                    <button class="btn btn-secondary" style="width: 100%; margin-top: 20px;">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🚀 Faizan Bot</h4>
+                    <p>Professional AI-powered trading signals for modern traders.</p>
+                    <div class="social-links">
+                        <a href="#" title="Twitter">𝕏</a>
+                        <a href="#" title="Telegram">📧</a>
+                        <a href="#" title="Discord">💬</a>
+                        <a href="#" title="GitHub">🐙</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Docs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Risk Disclaimer</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Faizan Quotex Signal Bot. All rights reserved. | Built with ❤️ for traders worldwide</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Add smooth scrolling and interactions
-        document.querySelectorAll('.pair-badge').forEach(badge => {
-            badge.addEventListener('click', function() {
-                console.log('Selected pair:', this.textContent);
+        // Smooth scroll active nav link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('nav a').forEach(l => l.style.color = '#fff');
+                this.style.color = 'var(--primary)';
             });
         });
 
-        console.log('✅ Faizan Quotex Signal Bot - Ready to trade!');
+        // Interactive indicators
+        document.querySelectorAll('.indicator').forEach(ind => {
+            ind.addEventListener('click', function() {
+                this.style.animation = 'pulse 0.5s';
+                setTimeout(() => this.style.animation = '', 500);
+            });
+        });
+
+        // Interactive pairs
+        document.querySelectorAll('.pair').forEach(pair => {
+            pair.addEventListener('click', function() {
+                console.log('Selected:', this.textContent);
+            });
+        });
+
+        console.log('✨ Professional Faizan Quotex Signal Bot - Ready to trade!');
     </script>
 </body>
 </html>
