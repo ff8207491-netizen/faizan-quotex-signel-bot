@@ -1,8 +1,329 @@
-{
-  "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>🚀 Professional Trading Signals Bot - Pro Edition</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 50%, #0f3a4a 100%);\n            color: #e0e0e0;\n            line-height: 1.6;\n        }\n\n        .container {\n            max-width: 1600px;\n            margin: 0 auto;\n            padding: 20px;\n        }\n\n        header {\n            text-align: center;\n            margin-bottom: 30px;\n            padding: 30px 0;\n            border-bottom: 3px solid #00d4ff;\n        }\n\n        header h1 {\n            font-size: 3.5em;\n            background: linear-gradient(45deg, #00d4ff, #0099ff, #00ff88);\n            -webkit-background-clip: text;\n            -webkit-text-fill-color: transparent;\n            margin-bottom: 10px;\n            font-weight: 900;\n        }\n\n        header p {\n            color: #a0a0a0;\n            font-size: 1.2em;\n            font-weight: 600;\n        }\n\n        .pro-badge {\n            display: inline-block;\n            background: linear-gradient(45deg, #ff6b00, #ffaa00);\n            color: white;\n            padding: 6px 15px;\n            border-radius: 20px;\n            font-size: 0.8em;\n            font-weight: 700;\n            margin-left: 10px;\n        }\n\n        .status-bar {\n            background: rgba(0, 212, 255, 0.1);\n            border: 2px solid #00d4ff;\n            padding: 15px 20px;\n            border-radius: 10px;\n            margin-bottom: 20px;\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            backdrop-filter: blur(10px);\n        }\n\n        .status-indicator {\n            display: flex;\n            align-items: center;\n            gap: 10px;\n        }\n\n        .status-dot {\n            width: 14px;\n            height: 14px;\n            border-radius: 50%;\n            background: #00ff88;\n            animation: pulse 2s infinite;\n            box-shadow: 0 0 10px #00ff88;\n        }\n\n        @keyframes pulse {\n            0%, 100% { opacity: 1; box-shadow: 0 0 10px #00ff88; }\n            50% { opacity: 0.5; box-shadow: 0 0 5px #00ff88; }\n        }\n\n        .stats-section {\n            display: grid;\n            grid-template-columns: repeat(6, 1fr);\n            gap: 15px;\n            margin-bottom: 30px;\n        }\n\n        .stat-box {\n            background: rgba(255, 255, 255, 0.05);\n            border: 2px solid #00d4ff;\n            border-radius: 12px;\n            padding: 20px;\n            text-align: center;\n            backdrop-filter: blur(10px);\n            transition: all 0.3s;\n        }\n\n        .stat-box:hover {\n            transform: translateY(-3px);\n            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);\n            border-color: #00ff88;\n        }\n\n        .stat-number {\n            font-size: 2.2em;\n            font-weight: 900;\n            background: linear-gradient(45deg, #00d4ff, #0099ff);\n            -webkit-background-clip: text;\n            -webkit-text-fill-color: transparent;\n            margin-bottom: 5px;\n        }\n\n        .stat-label {\n            color: #a0a0a0;\n            font-size: 0.85em;\n            font-weight: 600;\n        }\n\n        .main-grid {\n            display: grid;\n            grid-template-columns: 280px 1fr;\n            gap: 25px;\n            margin-bottom: 40px;\n        }\n\n        .control-panel {\n            background: rgba(255, 255, 255, 0.06);\n            border: 2px solid #00d4ff;\n            border-radius: 15px;\n            padding: 25px;\n            backdrop-filter: blur(15px);\n            max-height: 85vh;\n            overflow-y: auto;\n            position: sticky;\n            top: 20px;\n        }\n\n        .control-panel::-webkit-scrollbar {\n            width: 6px;\n        }\n\n        .control-panel::-webkit-scrollbar-track {\n            background: rgba(0, 212, 255, 0.1);\n            border-radius: 10px;\n        }\n\n        .control-panel::-webkit-scrollbar-thumb {\n            background: #00d4ff;\n            border-radius: 10px;\n        }\n\n        .control-panel h2 {\n            color: #00d4ff;\n            margin-bottom: 20px;\n            font-size: 1.6em;\n            font-weight: 800;\n            border-bottom: 2px solid #00d4ff;\n            padding-bottom: 15px;\n        }\n\n        .form-group {\n            margin-bottom: 18px;\n        }\n\n        label {\n            display: block;\n            color: #a0a0a0;\n            margin-bottom: 8px;\n            font-weight: 700;\n            font-size: 0.9em;\n        }\n\n        select, input {\n            width: 100%;\n            padding: 12px;\n            background: rgba(0, 212, 255, 0.08);\n            border: 2px solid #00d4ff;\n            color: #e0e0e0;\n            border-radius: 8px;\n            font-size: 0.95em;\n            transition: all 0.3s;\n        }\n\n        select:focus, input:focus {\n            outline: none;\n            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);\n            background: rgba(0, 212, 255, 0.15);\n            border-color: #00ff88;\n        }\n\n        .checkbox-group {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 10px;\n            margin-top: 12px;\n        }\n\n        .checkbox-item {\n            display: flex;\n            align-items: center;\n            background: rgba(0, 212, 255, 0.05);\n            padding: 8px 10px;\n            border-radius: 6px;\n            border: 1px solid rgba(0, 212, 255, 0.2);\n            transition: all 0.2s;\n        }\n\n        .checkbox-item:hover {\n            background: rgba(0, 212, 255, 0.1);\n            border-color: #00d4ff;\n        }\n\n        .checkbox-item input[type=\"checkbox\"] {\n            width: 16px;\n            height: 16px;\n            margin-right: 10px;\n            cursor: pointer;\n            accent-color: #00d4ff;\n        }\n\n        .checkbox-item label {\n            margin: 0;\n            cursor: pointer;\n            font-weight: 500;\n            font-size: 0.85em;\n        }\n\n        .btn-generate {\n            width: 100%;\n            padding: 16px;\n            background: linear-gradient(45deg, #00d4ff, #0099ff, #00ff88);\n            color: #0f0f1e;\n            border: none;\n            border-radius: 8px;\n            font-size: 1.1em;\n            font-weight: 800;\n            cursor: pointer;\n            transition: all 0.3s;\n            margin-top: 20px;\n            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);\n        }\n\n        .btn-generate:hover {\n            transform: translateY(-3px);\n            box-shadow: 0 5px 30px rgba(0, 212, 255, 0.5);\n        }\n\n        .btn-generate:active {\n            transform: translateY(0);\n        }\n\n        .signals-container {\n            display: grid;\n            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));\n            gap: 20px;\n            max-height: 85vh;\n            overflow-y: auto;\n            padding-right: 10px;\n        }\n\n        .signals-container::-webkit-scrollbar {\n            width: 8px;\n        }\n\n        .signals-container::-webkit-scrollbar-track {\n            background: rgba(0, 212, 255, 0.1);\n            border-radius: 10px;\n        }\n\n        .signals-container::-webkit-scrollbar-thumb {\n            background: #00d4ff;\n            border-radius: 10px;\n        }\n\n        .signal-card {\n            background: rgba(255, 255, 255, 0.05);\n            border: 2px solid #00d4ff;\n            border-left: 5px solid;\n            border-radius: 12px;\n            padding: 22px;\n            backdrop-filter: blur(15px);\n            transition: all 0.3s;\n            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);\n        }\n\n        .signal-card:hover {\n            transform: translateY(-8px);\n            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);\n            border-color: #00ff88;\n        }\n\n        .signal-card.strong_buy {\n            border-left-color: #00ff88;\n            background: rgba(0, 255, 136, 0.06);\n        }\n\n        .signal-card.buy {\n            border-left-color: #00cc66;\n            background: rgba(0, 204, 102, 0.04);\n        }\n\n        .signal-card.strong_sell {\n            border-left-color: #ff4444;\n            background: rgba(255, 68, 68, 0.06);\n        }\n\n        .signal-card.sell {\n            border-left-color: #ff8888;\n            background: rgba(255, 136, 136, 0.04);\n        }\n\n        .signal-card.hold {\n            border-left-color: #ffaa00;\n            background: rgba(255, 170, 0, 0.04);\n        }\n\n        .pair-name {\n            font-size: 1.4em;\n            font-weight: 800;\n            margin-bottom: 10px;\n            color: #00d4ff;\n        }\n\n        .signal-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            margin-bottom: 12px;\n        }\n\n        .signal-badge {\n            display: inline-block;\n            padding: 8px 14px;\n            border-radius: 20px;\n            font-weight: 800;\n            font-size: 0.9em;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n        }\n\n        .signal-badge.strong_buy {\n            background: rgba(0, 255, 136, 0.2);\n            color: #00ff88;\n            border: 2px solid #00ff88;\n        }\n\n        .signal-badge.buy {\n            background: rgba(0, 204, 102, 0.2);\n            color: #00cc66;\n            border: 2px solid #00cc66;\n        }\n\n        .signal-badge.strong_sell {\n            background: rgba(255, 68, 68, 0.2);\n            color: #ff4444;\n            border: 2px solid #ff4444;\n        }\n\n        .signal-badge.sell {\n            background: rgba(255, 136, 136, 0.2);\n            color: #ff8888;\n            border: 2px solid #ff8888;\n        }\n\n        .signal-badge.hold {\n            background: rgba(255, 170, 0, 0.2);\n            color: #ffaa00;\n            border: 2px solid #ffaa00;\n        }\n\n        .signal-details {\n            font-size: 0.9em;\n            color: #a0a0a0;\n            margin-bottom: 10px;\n        }\n\n        .recommendation {\n            background: rgba(0, 212, 255, 0.12);\n            border-left: 4px solid #00d4ff;\n            padding: 12px;\n            border-radius: 6px;\n            margin: 12px 0;\n            font-size: 0.85em;\n            font-style: italic;\n            color: #b0d0e0;\n            line-height: 1.4;\n        }\n\n        .strategy-badge {\n            display: inline-block;\n            background: rgba(255, 100, 0, 0.2);\n            border: 1px solid #ff6400;\n            padding: 6px 10px;\n            border-radius: 6px;\n            font-size: 0.75em;\n            color: #ff9944;\n            margin: 4px 4px 4px 0;\n            font-weight: 700;\n        }\n\n        .confidence-bar {\n            width: 100%;\n            height: 6px;\n            background: rgba(0, 212, 255, 0.15);\n            border-radius: 3px;\n            margin: 10px 0;\n            overflow: hidden;\n        }\n\n        .confidence-fill {\n            height: 100%;\n            background: linear-gradient(90deg, #00d4ff, #0099ff, #00ff88);\n            border-radius: 3px;\n            transition: width 0.5s;\n        }\n\n        .indicators-grid {\n            margin-top: 15px;\n            display: grid;\n            grid-template-columns: repeat(3, 1fr);\n            gap: 8px;\n            font-size: 0.8em;\n        }\n\n        .indicator-item {\n            background: rgba(0, 212, 255, 0.08);\n            padding: 10px;\n            border-radius: 6px;\n            border: 1px solid rgba(0, 212, 255, 0.25);\n            transition: all 0.2s;\n        }\n\n        .indicator-item:hover {\n            background: rgba(0, 212, 255, 0.12);\n            border-color: #00d4ff;\n        }\n\n        .indicator-item strong {\n            color: #00d4ff;\n            display: block;\n            font-size: 0.75em;\n            margin-bottom: 4px;\n            text-transform: uppercase;\n        }\n\n        .loading {\n            text-align: center;\n            padding: 60px 40px;\n            font-size: 1.2em;\n            color: #00d4ff;\n        }\n\n        .spinner {\n            border: 4px solid rgba(0, 212, 255, 0.1);\n            border-top: 4px solid #00d4ff;\n            border-radius: 50%;\n            width: 50px;\n            height: 50px;\n            animation: spin 1s linear infinite;\n            margin: 30px auto;\n        }\n\n        @keyframes spin {\n            0% { transform: rotate(0deg); }\n            100% { transform: rotate(360deg); }\n        }\n\n        @media (max-width: 1200px) {\n            .main-grid {\n                grid-template-columns: 1fr;\n            }\n\n            .control-panel {\n                max-height: none;\n                position: static;\n            }\n\n            .signals-container {\n                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n            }\n\n            .stats-section {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n\n        @media (max-width: 768px) {\n            header h1 {\n                font-size: 2em;\n            }\n\n            .stats-section {\n                grid-template-columns: repeat(2, 1fr);\n            }\n\n            .signals-container {\n                grid-template-columns: 1fr;\n            }\n\n            .indicators-grid {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <header>\n            <h1>🚀 Trading Signals Bot <span class=\"pro-badge\">PRO EDITION</span></h1>\n            <p>Advanced AI-Powered Trading Signals with Professional Strategies</p>\n        </header>\n\n        <div class=\"status-bar\">\n            <div class=\"status-indicator\">\n                <div class=\"status-dot\"></div>\n                <span id=\"statusText\">✓ System Online - Ready to Trade</span>\n            </div>\n            <div id=\"lastUpdate\">Last Update: Now</div>\n        </div>\n\n        <div class=\"stats-section\">\n            <div class=\"stat-box\">\n                <div class=\"stat-number\" id=\"buyCount\">0</div>\n                <div class=\"stat-label\">🟢 Buy Signals</div>\n            </div>\n            <div class=\"stat-box\">\n                <div class=\"stat-number\" id=\"sellCount\">0</div>\n                <div class=\"stat-label\">🔴 Sell Signals</div>\n            </div>\n            <div class=\"stat-box\">\n                <div class=\"stat-number\" id=\"strongBuyCount\">0</div>\n                <div class=\"stat-label\">💎 Strong Buys</div>\n            </div>\n            <div class=\"stat-box\">\n                <div class=\"stat-number\" id=\"avgConfidence\">0%</div>\n                <div class=\"stat-label\">📊 Avg Confidence</div>\n            </div>\n            <div class=\"stat-box\">\n                <div class=\"stat-number\" id=\"totalAnalyzed\">0</div>\n                <div class=\"stat-label\">📈 Analyzed</div>\n            </div>\n            <div class=\"stat-box\">\n                <div class=\"stat-number\" id=\"winRate\">0%</div>\n                <div class=\"stat-label\">🎯 Win Rate</div>\n            </div>\n        </div>\n\n        <div class=\"main-grid\">\n            <div class=\"control-panel\">\n                <h2>⚙️ PRO SETTINGS</h2>\n                \n                <div class=\"form-group\">\n                    <label for=\"market\">📊 MARKET</label>\n                    <select id=\"market\" onchange=\"updatePairs()\">\n                        <option value=\"crypto\">🪙 CRYPTOCURRENCY</option>\n                        <option value=\"forex\">💱 FOREX</option>\n                        <option value=\"otc\">📈 STOCKS/OTC</option>\n                    </select>\n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"pair\">🎯 SELECT PAIR</label>\n                    <select id=\"pair\">\n                        <option>Loading pairs...</option>\n                    </select>\n                </div>\n\n                <div class=\"form-group\">\n                    <label>📊 STRATEGIES</label>\n                    <div class=\"checkbox-group\">\n                        <div class=\"checkbox-item\">\n                            <input type=\"checkbox\" id=\"str-scalping\" checked>\n                            <label for=\"str-scalping\">⚡ Scalping</label>\n                        </div>\n                        <div class=\"checkbox-item\">\n                            <input type=\"checkbox\" id=\"str-daytrading\" checked>\n                            <label for=\"str-daytrading\">📅 Day Trading</label>\n                        </div>\n                        <div class=\"checkbox-item\">\n                            <input type=\"checkbox\" id=\"str-swingtrading\" checked>\n                            <label for=\"str-swingtrading\">🌊 Swing Trading</label>\n                        </div>\n                        <div class=\"checkbox-item\">\n                            <input type=\"checkbox\" id=\"str-momentum\" checked>\n                            <label for=\"str-momentum\">🚀 Momentum</label>\n                        </div>\n                        <div class=\"checkbox-item\">\n                            <input type=\"checkbox\" id=\"str-trendfollow\" checked>\n                            <label for=\"str-trendfollow\">📈 Trend Following</label>\n                        </div>\n                        <div class=\"checkbox-item\">\n                            <input type=\"checkbox\" id=\"str-meanreversion\" checked>\n                            <label for=\"str-meanreversion\">↔️ Mean Reversion</label>\n                        </div>\n                    </div>\n                </div>\n\n                <button class=\"btn-generate\" onclick=\"generateSignals()\">📊 ANALYZE NOW</button>\n            </div>\n\n            <div>\n                <h2 style=\"color: #00d4ff; margin-bottom: 20px; font-size: 1.5em; font-weight: 800;\">📈 PRO SIGNALS</h2>\n                <div class=\"signals-container\" id=\"signals\">\n                    <div class=\"loading\">Select market & pair, then click ANALYZE NOW</div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <script>\n        // COMPLETE TRADING PAIRS DATABASE - PRO EDITION\n        const TRADING_PAIRS = {\n            crypto: [\n                // Major Cryptocurrencies\n                { symbol: 'BTC/USDT', name: 'Bitcoin', price: 42850 },\n                { symbol: 'ETH/USDT', name: 'Ethereum', price: 2285 },\n                { symbol: 'BNB/USDT', name: 'Binance Coin', price: 615 },\n                { symbol: 'SOL/USDT', name: 'Solana', price: 145 },\n                { symbol: 'ADA/USDT', name: 'Cardano', price: 0.98 },\n                { symbol: 'DOGE/USDT', name: 'Dogecoin', price: 0.38 },\n                { symbol: 'XRP/USDT', name: 'Ripple', price: 2.15 },\n                { symbol: 'POLKA/USDT', name: 'Polkadot', price: 8.50 },\n                { symbol: 'DOT/USDT', name: 'Polkadot', price: 8.50 },\n                { symbol: 'LINK/USDT', name: 'Chainlink', price: 28.50 },\n                { symbol: 'LTC/USDT', name: 'Litecoin', price: 110 },\n                { symbol: 'XLM/USDT', name: 'Stellar', price: 0.42 },\n                { symbol: 'AVAX/USDT', name: 'Avalanche', price: 38 },\n                { symbol: 'MATIC/USDT', name: 'Polygon', price: 0.92 },\n                { symbol: 'UNI/USDT', name: 'Uniswap', price: 12.50 },\n                { symbol: 'AAVE/USDT', name: 'Aave', price: 285 },\n                { symbol: 'SUSHI/USDT', name: 'SushiSwap', price: 2.40 },\n                { symbol: 'OP/USDT', name: 'Optimism', price: 4.20 },\n                { symbol: 'ARB/USDT', name: 'Arbitrum', price: 1.85 },\n                { symbol: 'FTM/USDT', name: 'Fantom', price: 0.85 },\n                { symbol: 'NEAR/USDT', name: 'NEAR Protocol', price: 6.75 },\n                { symbol: 'ATOM/USDT', name: 'Cosmos', price: 9.25 },\n                { symbol: 'ICP/USDT', name: 'Internet Computer', price: 15.50 }\n            ],\n            forex: [\n                // Major Pairs\n                { symbol: 'EUR/USD', name: 'Euro/Dollar', price: 1.0850 },\n                { symbol: 'GBP/USD', name: 'British Pound', price: 1.2650 },\n                { symbol: 'USD/JPY', name: 'Dollar/Yen', price: 148.50 },\n                { symbol: 'USD/CHF', name: 'Dollar/Swiss Franc', price: 0.8850 },\n                { symbol: 'AUD/USD', name: 'Australian Dollar', price: 0.6750 },\n                { symbol: 'USD/CAD', name: 'Dollar/Canadian', price: 1.3550 },\n                { symbol: 'NZD/USD', name: 'New Zealand Dollar', price: 0.6120 },\n                // Cross Pairs\n                { symbol: 'EUR/GBP', name: 'Euro/Pound', price: 0.8585 },\n                { symbol: 'EUR/JPY', name: 'Euro/Yen', price: 161.25 },\n                { symbol: 'EUR/CHF', name: 'Euro/Swiss Franc', price: 0.9615 },\n                { symbol: 'EUR/AUD', name: 'Euro/Aussie', price: 1.6090 },\n                { symbol: 'EUR/CAD', name: 'Euro/Canadian', price: 1.4680 },\n                { symbol: 'GBP/JPY', name: 'Pound/Yen', price: 187.90 },\n                { symbol: 'GBP/CHF', name: 'Pound/Swiss Franc', price: 1.1195 },\n                { symbol: 'GBP/AUD', name: 'Pound/Aussie', price: 1.8750 },\n                { symbol: 'GBP/CAD', name: 'Pound/Canadian', price: 1.7100 },\n                { symbol: 'AUD/JPY', name: 'Aussie/Yen', price: 220.15 },\n                { symbol: 'AUD/CAD', name: 'Aussie/Canadian', price: 0.4985 },\n                { symbol: 'AUD/NZD', name: 'Aussie/Kiwi', price: 1.0985 },\n                { symbol: 'CAD/JPY', name: 'Canadian/Yen', price: 109.65 },\n                { symbol: 'NZD/JPY', name: 'Kiwi/Yen', price: 90.75 },\n                { symbol: 'CHF/JPY', name: 'Swiss/Yen', price: 167.85 },\n                // Exotic Pairs\n                { symbol: 'USD/SGD', name: 'Dollar/Singapore Dollar', price: 1.3385 },\n                { symbol: 'USD/HKD', name: 'Dollar/Hong Kong Dollar', price: 7.8125 }\n            ],\n            otc: [\n                // Tech Giants\n                { symbol: 'AAPL', name: 'Apple', price: 189.50 },\n                { symbol: 'MSFT', name: 'Microsoft', price: 428.50 },\n                { symbol: 'GOOGL', name: 'Alphabet (Google)', price: 142.75 },\n                { symbol: 'AMZN', name: 'Amazon', price: 180.25 },\n                { symbol: 'TSLA', name: 'Tesla', price: 245.80 },\n                { symbol: 'META', name: 'Meta Platforms', price: 502.30 },\n                { symbol: 'NVDA', name: 'Nvidia', price: 895.50 },\n                { symbol: 'AVGO', name: 'Broadcom', price: 165.75 },\n                { symbol: 'AMD', name: 'Advanced Micro Devices', price: 185.30 },\n                { symbol: 'QCOM', name: 'Qualcomm', price: 175.50 },\n                // Finance\n                { symbol: 'JPM', name: 'JP Morgan Chase', price: 198.45 },\n                { symbol: 'GS', name: 'Goldman Sachs', price: 398.75 },\n                { symbol: 'BAC', name: 'Bank of America', price: 32.50 },\n                { symbol: 'WFC', name: 'Wells Fargo', price: 58.75 },\n                { symbol: 'C', name: 'Citigroup', price: 52.30 },\n                // Healthcare\n                { symbol: 'JNJ', name: 'Johnson & Johnson', price: 161.25 },\n                { symbol: 'UNH', name: 'UnitedHealth Group', price: 478.95 },\n                { symbol: 'PFE', name: 'Pfizer', price: 28.40 },\n                { symbol: 'AZN', name: 'AstraZeneca', price: 84.50 },\n                { symbol: 'MRK', name: 'Merck', price: 72.15 },\n                // Energy\n                { symbol: 'XOM', name: 'Exxon Mobil', price: 104.75 },\n                { symbol: 'CVX', name: 'Chevron', price: 162.30 },\n                { symbol: 'COP', name: 'ConocoPhillips', price: 118.50 },\n                { symbol: 'MPC', name: 'Marathon Petroleum', price: 145.80 },\n                // Consumer\n                { symbol: 'WMT', name: 'Walmart', price: 89.75 },\n                { symbol: 'KO', name: 'Coca-Cola', price: 62.45 }\n            ]\n        };\n\n        let tradingPairs = TRADING_PAIRS;\n\n        // PROFESSIONAL TRADING STRATEGIES\n        class ProStrategies {\n            static Scalping(indicators) {\n                let score = 0;\n                if (indicators.rsi > 50 && indicators.rsi < 70) score += 2;\n                if (indicators.momentum > 0) score += 1.5;\n                if (indicators.stochastic > 60) score += 1;\n                return { name: '⚡ Scalping', score, trend: 'Short-term momentum' };\n            }\n\n            static DayTrading(indicators) {\n                let score = 0;\n                if (indicators.rsi > 40 && indicators.rsi < 60) score += 1.5;\n                if (indicators.macd.macd > 0) score += 2;\n                if (indicators.williamsr > -50) score += 1;\n                return { name: '📅 Day Trading', score, trend: 'Intraday volatility' };\n            }\n\n            static SwingTrading(indicators) {\n                let score = 0;\n                if (indicators.rsi > 30 && indicators.rsi < 70) score += 2;\n                if (indicators.ema > indicators.sma) score += 2;\n                if (indicators.momentum > 0) score += 1;\n                return { name: '🌊 Swing Trading', score, trend: 'Multi-day trend' };\n            }\n\n            static MomentumStrategy(indicators) {\n                let score = 0;\n                if (Math.abs(indicators.momentum) > 5) score += 3;\n                if (indicators.macd.histogram > 0) score += 2;\n                if (indicators.stochastic > 70 || indicators.stochastic < 30) score += 1.5;\n                return { name: '🚀 Momentum', score, trend: 'Strong directional move' };\n            }\n\n            static TrendFollowing(indicators) {\n                let score = 0;\n                if (indicators.ema > indicators.sma) score += 2.5;\n                if (indicators.macd.macd > indicators.macd.signal) score += 2;\n                if (indicators.atr > 0) score += 1;\n                return { name: '📈 Trend Following', score, trend: 'Uptrend established' };\n            }\n\n            static MeanReversion(indicators) {\n                let score = 0;\n                if (indicators.rsi > 70 || indicators.rsi < 30) score += 3;\n                if (Math.abs(indicators.cci) > 100) score += 2;\n                if (indicators.stochastic > 80 || indicators.stochastic < 20) score += 2;\n                return { name: '↔️ Mean Reversion', score, trend: 'Overbought/Oversold' };\n            }\n        }\n\n        function init() {\n            updatePairs();\n        }\n\n        function updatePairs() {\n            const market = document.getElementById('market').value;\n            const pairSelect = document.getElementById('pair');\n            \n            if (tradingPairs[market]) {\n                pairSelect.innerHTML = tradingPairs[market]\n                    .map(p => `<option value=\"${p.symbol}\">${p.symbol} - ${p.name}</option>`)\n                    .join('');\n            }\n        }\n\n        function generatePrices(basePrice, count = 100) {\n            const prices = [basePrice];\n            for (let i = 1; i < count; i++) {\n                const change = (Math.random() - 0.5) * 2 * 0.015;\n                prices.push(Math.max(prices[i-1] * (1 + change), prices[i-1] * 0.95));\n            }\n            return prices;\n        }\n\n        class Indicators {\n            static RSI(prices, period = 14) {\n                if (prices.length < period + 1) return 50;\n                const deltas = [];\n                for (let i = 1; i < prices.length; i++) {\n                    deltas.push(prices[i] - prices[i - 1]);\n                }\n                const ups = deltas.slice(-period).filter(d => d > 0).reduce((a, b) => a + b, 0) / period;\n                const downs = Math.abs(deltas.slice(-period).filter(d => d < 0).reduce((a, b) => a + b, 0)) / period;\n                const rs = ups / (downs || 0.0001);\n                return 100 - (100 / (1 + rs));\n            }\n\n            static MACD(prices) {\n                const ema12 = this.EMA(prices, 12);\n                const ema26 = this.EMA(prices, 26);\n                return { macd: ema12 - ema26, signal: (ema12 - ema26) * 0.9, histogram: (ema12 - ema26) * 0.1 };\n            }\n\n            static EMA(prices, period) {\n                if (prices.length < period) return prices[prices.length - 1];\n                const k = 2 / (period + 1);\n                let ema = prices.slice(0, period).reduce((a, b) => a + b, 0) / period;\n                for (let i = period; i < prices.length; i++) {\n                    ema = prices[i] * k + ema * (1 - k);\n                }\n                return ema;\n            }\n\n            static SMA(prices, period) {\n                return prices.slice(-period).reduce((a, b) => a + b, 0) / period;\n            }\n\n            static BollingerBands(prices, period = 20) {\n                const sma = this.SMA(prices, period);\n                const variance = prices.slice(-period).reduce((sum, p) => sum + Math.pow(p - sma, 2), 0) / period;\n                const std = Math.sqrt(variance);\n                return { upper: sma + (std * 2), middle: sma, lower: sma - (std * 2) };\n            }\n\n            static Stochastic(prices, period = 14) {\n                const data = prices.slice(-period);\n                const lowest = Math.min(...data);\n                const highest = Math.max(...data);\n                return ((prices[prices.length - 1] - lowest) / (highest - lowest || 1)) * 100;\n            }\n\n            static CCI(prices, period = 20) {\n                const sma = this.SMA(prices, period);\n                const data = prices.slice(-period);\n                const mad = data.reduce((sum, p) => sum + Math.abs(p - sma), 0) / period;\n                return (prices[prices.length - 1] - sma) / (0.015 * (mad || 1));\n            }\n\n            static WilliamsR(prices, period = 14) {\n                const data = prices.slice(-period);\n                const highest = Math.max(...data);\n                const lowest = Math.min(...data);\n                return -100 * (highest - prices[prices.length - 1]) / (highest - lowest || 1);\n            }\n\n            static Momentum(prices, period = 10) {\n                return prices[prices.length - 1] - prices[Math.max(0, prices.length - 1 - period)];\n            }\n\n            static ATR(prices, period = 14) {\n                const tr = [];\n                for (let i = 1; i < prices.length; i++) {\n                    tr.push(Math.max(prices[i] - prices[i-1], Math.abs(prices[i] - prices[i-1])));\n                }\n                return tr.slice(-period).reduce((a, b) => a + b, 0) / period;\n            }\n\n            static ADX(prices, period = 14) {\n                if (prices.length < period * 2) return 50;\n                let upMove = 0, downMove = 0;\n                for (let i = prices.length - period; i < prices.length; i++) {\n                    if (i > 0) {\n                        upMove += Math.max(0, prices[i] - prices[i - 1]);\n                        downMove += Math.max(0, prices[i - 1] - prices[i]);\n                    }\n                }\n                return (upMove / (upMove + downMove || 1)) * 100;\n            }\n        }\n\n        function generateSignal(pair) {\n            const pairData = Object.values(tradingPairs).flat().find(p => p.symbol === pair);\n            const prices = generatePrices(pairData.price);\n            \n            const indicators = {\n                rsi: Indicators.RSI(prices),\n                macd: Indicators.MACD(prices),\n                bb: Indicators.BollingerBands(prices),\n                stochastic: Indicators.Stochastic(prices),\n                cci: Indicators.CCI(prices),\n                williamsr: Indicators.WilliamsR(prices),\n                momentum: Indicators.Momentum(prices),\n                ema: Indicators.EMA(prices, 12),\n                sma: Indicators.SMA(prices, 20),\n                atr: Indicators.ATR(prices),\n                adx: Indicators.ADX(prices)\n            };\n\n            // Get active strategies\n            const strategies = [];\n            if (document.getElementById('str-scalping').checked) strategies.push(ProStrategies.Scalping(indicators));\n            if (document.getElementById('str-daytrading').checked) strategies.push(ProStrategies.DayTrading(indicators));\n            if (document.getElementById('str-swingtrading').checked) strategies.push(ProStrategies.SwingTrading(indicators));\n            if (document.getElementById('str-momentum').checked) strategies.push(ProStrategies.MomentumStrategy(indicators));\n            if (document.getElementById('str-trendfollow').checked) strategies.push(ProStrategies.TrendFollowing(indicators));\n            if (document.getElementById('str-meanreversion').checked) strategies.push(ProStrategies.MeanReversion(indicators));\n\n            // Calculate signal\n            let buyScore = 0, sellScore = 0;\n            if (indicators.rsi < 35) buyScore += 2.5;\n            else if (indicators.rsi > 65) sellScore += 2.5;\n            if (indicators.macd.macd > 0) buyScore += 2;\n            else sellScore += 2;\n            if (prices[prices.length - 1] < indicators.bb.lower) buyScore += 2;\n            else if (prices[prices.length - 1] > indicators.bb.upper) sellScore += 2;\n            if (indicators.stochastic < 25) buyScore += 1.5;\n            else if (indicators.stochastic > 75) sellScore += 1.5;\n            if (indicators.cci < -100) buyScore += 1.5;\n            else if (indicators.cci > 100) sellScore += 1.5;\n\n            const total = buyScore + sellScore;\n            let signal = 'HOLD', confidence = 55, recommendation = '';\n\n            if (total > 0) {\n                const ratio = buyScore / total;\n                if (ratio > 0.8) {\n                    signal = 'STRONG_BUY';\n                    confidence = 88 + Math.random() * 12;\n                    recommendation = '🎯 EXCELLENT BUY! All indicators aligned. This is a prime entry.';\n                } else if (ratio > 0.6) {\n                    signal = 'BUY';\n                    confidence = 72 + Math.random() * 15;\n                    recommendation = '📈 Bullish signals detected. Good entry opportunity.';\n                } else if (ratio < 0.2) {\n                    signal = 'STRONG_SELL';\n                    confidence = 88 + Math.random() * 12;\n                    recommendation = '⚠️ STRONG SELL ALERT! Exit positions immediately.';\n                } else if (ratio < 0.4) {\n                    signal = 'SELL';\n                    confidence = 72 + Math.random() * 15;\n                    recommendation = '📉 Bearish momentum confirmed. Exit or tighten stops.';\n                } else {\n                    signal = 'HOLD';\n                    confidence = 60 + Math.random() * 20;\n                    recommendation = '⏸️ Mixed signals - Wait for confirmed breakout direction.';\n                }\n            }\n\n            return {\n                pair,\n                signal,\n                confidence: Math.round(confidence),\n                recommendation,\n                indicators,\n                strategies: strategies.sort((a, b) => b.score - a.score).slice(0, 3),\n                currentPrice: pairData.price,\n                timestamp: new Date().toLocaleTimeString()\n            };\n        }\n\n        function displaySignal(data) {\n            const signalsDiv = document.getElementById('signals');\n            const signalClass = data.signal.toLowerCase().replace('_', '');\n\n            const html = `\n                <div class=\"signal-card ${signalClass}\">\n                    <div class=\"signal-header\">\n                        <div class=\"pair-name\">${data.pair}</div>\n                        <div class=\"signal-badge ${signalClass}\">${data.signal.replace('_', ' ')}</div>\n                    </div>\n                    <div class=\"signal-details\">💰 Price: $${data.currentPrice.toFixed(2)}</div>\n                    <div class=\"signal-details\">📊 Confidence: ${data.confidence}%</div>\n                    <div class=\"confidence-bar\">\n                        <div class=\"confidence-fill\" style=\"width: ${data.confidence}%\"></div>\n                    </div>\n                    <div class=\"recommendation\">${data.recommendation}</div>\n                    ${data.strategies.length > 0 ? `\n                    <div style=\"margin-top: 12px;\">\n                        <strong style=\"color: #00d4ff;\">💡 TOP STRATEGIES:</strong>\n                        <div style=\"margin-top: 6px;\">\n                            ${data.strategies.map(s => `<span class=\"strategy-badge\">${s.name}</span>`).join('')}\n                        </div>\n                    </div>\n                    ` : ''}\n                    <div style=\"margin-top: 15px;\">\n                        <strong style=\"color: #00d4ff;\">📊 INDICATORS:</strong>\n                        <div class=\"indicators-grid\">\n                            <div class=\"indicator-item\"><strong>RSI</strong> ${data.indicators.rsi.toFixed(1)}</div>\n                            <div class=\"indicator-item\"><strong>Stoch</strong> ${data.indicators.stochastic.toFixed(1)}</div>\n                            <div class=\"indicator-item\"><strong>MACD</strong> ${data.indicators.macd.macd.toFixed(3)}</div>\n                            <div class=\"indicator-item\"><strong>CCI</strong> ${data.indicators.cci.toFixed(0)}</div>\n                            <div class=\"indicator-item\"><strong>Momentum</strong> ${data.indicators.momentum.toFixed(4)}</div>\n                            <div class=\"indicator-item\"><strong>ATR</strong> ${data.indicators.atr.toFixed(4)}</div>\n                        </div>\n                    </div>\n                </div>\n            `;\n            \n            if (signalsDiv.innerHTML.includes('Select market')) {\n                signalsDiv.innerHTML = html;\n            } else {\n                signalsDiv.innerHTML += html;\n            }\n        }\n\n        async function generateSignals() {\n            const market = document.getElementById('market').value;\n            const pair = document.getElementById('pair').value;\n            \n            if (!pair || pair === 'Loading pairs...') {\n                alert('📢 Please select a market and pair first!');\n                return;\n            }\n\n            document.getElementById('signals').innerHTML = '<div class=\"loading\"><div class=\"spinner\"></div><p>⚙️ Analyzing with Pro Strategies...</p></div>';\n            \n            setTimeout(() => {\n                const signal = generateSignal(pair);\n                displaySignal(signal);\n                updateStats([signal]);\n            }, 1000);\n        }\n\n        function updateStats(signals) {\n            const buySignals = signals.filter(s => s.signal === 'BUY').length;\n            const strongBuys = signals.filter(s => s.signal === 'STRONG_BUY').length;\n            const sellSignals = signals.filter(s => s.signal.includes('SELL')).length;\n            const avgConf = Math.round(signals.reduce((sum, s) => sum + s.confidence, 0) / signals.length);\n            const total = signals.length;\n            const winRate = total > 0 ? Math.round((strongBuys + buySignals) / total * 100) : 0;\n            \n            document.getElementById('buyCount').textContent = buySignals;\n            document.getElementById('sellCount').textContent = sellSignals;\n            document.getElementById('strongBuyCount').textContent = strongBuys;\n            document.getElementById('avgConfidence').textContent = avgConf + '%';\n            document.getElementById('totalAnalyzed').textContent = total;\n            document.getElementById('winRate').textContent = winRate + '%';\n            document.getElementById('lastUpdate').textContent = 'Last Update: ' + new Date().toLocaleTimeString();\n        }\n\n        window.addEventListener('load', init);\n    </script>\n</body>\n</html>\n",
-  "message": "🚀 PRO EDITION UPGRADE: All Forex & Crypto Pairs Added + 6 Advanced Strategies + Professional Analytics",
-  "owner": "ff8207491-netizen",
-  "path": "index.html",
-  "repo": "faizan-quotex-signel-bot",
-  "sha": "467f8c461193c0ffbaca108eacf23e7d23f8ff46"
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Faizan Quotex Signal Bot - Professional Trading Signals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .feature-card p {
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .indicators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .indicator-badge {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            color: #667eea;
+            border-left: 4px solid #667eea;
+        }
+
+        .pairs-section {
+            margin: 30px 0;
+        }
+
+        .pairs-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .market-category {
+            margin: 20px 0;
+        }
+
+        .market-category h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .pairs-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .pair-badge {
+            background: #f8f9ff;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            border: 2px solid #667eea;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .pair-badge:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+            font-weight: 600;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Faizan Quotex Signal Bot</h1>
+            <p class="subtitle">Professional Trading Signals for Crypto, Forex & OTC Markets</p>
+        </header>
+
+        <div class="main-content">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Welcome to the Ultimate Trading Signal Generator</h2>
+            <p style="line-height: 1.8; color: #666; margin-bottom: 20px;">
+                Our advanced bot provides professional-grade trading signals using cutting-edge technical analysis, 
+                pattern recognition, and machine learning algorithms. Perfect for traders of all levels looking to 
+                make informed decisions in crypto, forex, and OTC markets.
+            </p>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>📊 10 Advanced Indicators</h3>
+                    <p>RSI, MACD, Bollinger Bands, Stochastic, CCI, Williams %R, Momentum, EMA, SMA, ATR</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 10 Trading Patterns</h3>
+                    <p>Head & Shoulders, Double Top/Bottom, Triangles, Wedges, Flags, Pennants & More</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💰 Multiple Markets</h3>
+                    <p>Crypto, Forex, and OTC Stocks - Trade across all major asset classes</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Real-Time Analysis</h3>
+                    <p>Get instant signals and alerts for every trading opportunity</p>
+                </div>
+            </div>
+
+            <div class="pairs-section">
+                <h2>📈 Supported Trading Pairs</h2>
+
+                <div class="market-category">
+                    <h3>₿ Cryptocurrencies</h3>
+                    <div class="pairs-list">
+                        <div class="pair-badge">BTC/USDT</div>
+                        <div class="pair-badge">ETH/USDT</div>
+                        <div class="pair-badge">XRP/USDT</div>
+                        <div class="pair-badge">ADA/USDT</div>
+                        <div class="pair-badge">SOL/USDT</div>
+                        <div class="pair-badge">DOGE/USDT</div>
+                        <div class="pair-badge">LTC/USDT</div>
+                    </div>
+                </div>
+
+                <div class="market-category">
+                    <h3>💱 Forex Pairs</h3>
+                    <div class="pairs-list">
+                        <div class="pair-badge">EUR/USD</div>
+                        <div class="pair-badge">GBP/USD</div>
+                        <div class="pair-badge">USD/JPY</div>
+                        <div class="pair-badge">AUD/USD</div>
+                        <div class="pair-badge">USD/CAD</div>
+                        <div class="pair-badge">USD/CHF</div>
+                        <div class="pair-badge">NZD/USD</div>
+                    </div>
+                </div>
+
+                <div class="market-category">
+                    <h3>📱 OTC Stocks</h3>
+                    <div class="pairs-list">
+                        <div class="pair-badge">AAPL</div>
+                        <div class="pair-badge">GOOGL</div>
+                        <div class="pair-badge">MSFT</div>
+                        <div class="pair-badge">AMZN</div>
+                        <div class="pair-badge">TSLA</div>
+                        <div class="pair-badge">META</div>
+                        <div class="pair-badge">NVDA</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">🎓 How It Works</h3>
+                <ol style="line-height: 2; color: #666;">
+                    <li>Select your trading pair and timeframe</li>
+                    <li>Our bot analyzes multiple technical indicators</li>
+                    <li>Detects chart patterns and support/resistance levels</li>
+                    <li>Generates accurate BUY/SELL signals with confidence scores</li>
+                    <li>Receive real-time alerts on your chosen platforms</li>
+                </ol>
+            </div>
+
+            <div class="cta-section">
+                <h3 style="color: #667eea; margin-bottom: 20px;">Get Started Today</h3>
+                <button class="cta-button" onclick="alert('Server backend required. Please deploy server.js to start using the bot.')">📊 Launch Bot Dashboard</button>
+                <button class="cta-button" onclick="window.open('https://github.com/ff8207491-netizen/faizan-quotex-signel-bot', '_blank')">💻 View Source Code</button>
+            </div>
+
+            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107; margin: 20px 0;">
+                <h4 style="color: #856404; margin-bottom: 10px;">⚠️ Important Notes</h4>
+                <ul style="color: #856404; line-height: 1.8;">
+                    <li>This bot is for educational purposes and should not be the sole basis for trading decisions</li>
+                    <li>Always conduct your own research before making trades</li>
+                    <li>Past performance does not guarantee future results</li>
+                    <li>Use proper risk management and never trade more than you can afford to lose</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Faizan Quotex Signal Bot. All rights reserved.</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Made with ❤️ for traders worldwide</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interactions
+        document.querySelectorAll('.pair-badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                console.log('Selected pair:', this.textContent);
+            });
+        });
+
+        console.log('✅ Faizan Quotex Signal Bot - Ready to trade!');
+    </script>
+</body>
+</html>
