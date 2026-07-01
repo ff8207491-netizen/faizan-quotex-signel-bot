@@ -38,7 +38,6 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
             font-weight: 900;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
         header p {
@@ -477,18 +476,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        .pattern-badge {
-            display: inline-block;
-            background: rgba(0, 150, 255, 0.15);
-            border: 1px solid #0099ff;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 0.7em;
-            margin: 3px 3px 3px 0;
-            color: #00d4ff;
-            font-weight: 700;
-        }
-
         @media (max-width: 1200px) {
             .main-grid {
                 grid-template-columns: 1fr;
@@ -632,10 +619,10 @@
     </div>
 
     <script>
-        // COMPLETE TRADING PAIRS DATABASE
+        // COMPLETE TRADING PAIRS DATABASE - PRO EDITION
         const TRADING_PAIRS = {
             crypto: [
-                // Top Tier
+                // Major Cryptocurrencies
                 { symbol: 'BTC/USDT', name: 'Bitcoin', price: 42850 },
                 { symbol: 'ETH/USDT', name: 'Ethereum', price: 2285 },
                 { symbol: 'BNB/USDT', name: 'Binance Coin', price: 615 },
@@ -663,7 +650,7 @@
             forex: [
                 // Major Pairs
                 { symbol: 'EUR/USD', name: 'Euro/Dollar', price: 1.0850 },
-                { symbol: 'GBP/USD', name: 'Pound/Dollar', price: 1.2650 },
+                { symbol: 'GBP/USD', name: 'British Pound', price: 1.2650 },
                 { symbol: 'USD/JPY', name: 'Dollar/Yen', price: 148.50 },
                 { symbol: 'USD/CHF', name: 'Dollar/Swiss Franc', price: 0.8850 },
                 { symbol: 'AUD/USD', name: 'Australian Dollar', price: 0.6750 },
@@ -672,61 +659,62 @@
                 // Cross Pairs
                 { symbol: 'EUR/GBP', name: 'Euro/Pound', price: 0.8585 },
                 { symbol: 'EUR/JPY', name: 'Euro/Yen', price: 161.25 },
-                { symbol: 'EUR/CHF', name: 'Euro/Swiss', price: 0.9615 },
+                { symbol: 'EUR/CHF', name: 'Euro/Swiss Franc', price: 0.9615 },
                 { symbol: 'EUR/AUD', name: 'Euro/Aussie', price: 1.6090 },
                 { symbol: 'EUR/CAD', name: 'Euro/Canadian', price: 1.4680 },
                 { symbol: 'GBP/JPY', name: 'Pound/Yen', price: 187.90 },
-                { symbol: 'GBP/CHF', name: 'Pound/Swiss', price: 1.1195 },
+                { symbol: 'GBP/CHF', name: 'Pound/Swiss Franc', price: 1.1195 },
+                { symbol: 'GBP/AUD', name: 'Pound/Aussie', price: 1.8750 },
+                { symbol: 'GBP/CAD', name: 'Pound/Canadian', price: 1.7100 },
                 { symbol: 'AUD/JPY', name: 'Aussie/Yen', price: 220.15 },
                 { symbol: 'AUD/CAD', name: 'Aussie/Canadian', price: 0.4985 },
+                { symbol: 'AUD/NZD', name: 'Aussie/Kiwi', price: 1.0985 },
                 { symbol: 'CAD/JPY', name: 'Canadian/Yen', price: 109.65 },
                 { symbol: 'NZD/JPY', name: 'Kiwi/Yen', price: 90.75 },
+                { symbol: 'CHF/JPY', name: 'Swiss/Yen', price: 167.85 },
                 // Exotic Pairs
-                { symbol: 'USD/SGD', name: 'Dollar/Singapore', price: 1.3385 },
-                { symbol: 'USD/HKD', name: 'Dollar/Hong Kong', price: 7.8125 },
-                { symbol: 'USD/ZAR', name: 'Dollar/South Africa', price: 18.95 },
-                { symbol: 'USD/INR', name: 'Dollar/Indian Rupee', price: 83.25 },
-                { symbol: 'USD/MXN', name: 'Dollar/Mexican Peso', price: 17.05 },
-                { symbol: 'USD/BRL', name: 'Dollar/Brazilian Real', price: 4.98 }
+                { symbol: 'USD/SGD', name: 'Dollar/Singapore Dollar', price: 1.3385 },
+                { symbol: 'USD/HKD', name: 'Dollar/Hong Kong Dollar', price: 7.8125 }
             ],
             otc: [
                 // Tech Giants
                 { symbol: 'AAPL', name: 'Apple', price: 189.50 },
                 { symbol: 'MSFT', name: 'Microsoft', price: 428.50 },
-                { symbol: 'GOOGL', name: 'Google', price: 142.75 },
+                { symbol: 'GOOGL', name: 'Alphabet (Google)', price: 142.75 },
                 { symbol: 'AMZN', name: 'Amazon', price: 180.25 },
                 { symbol: 'TSLA', name: 'Tesla', price: 245.80 },
-                { symbol: 'META', name: 'Meta', price: 502.30 },
+                { symbol: 'META', name: 'Meta Platforms', price: 502.30 },
                 { symbol: 'NVDA', name: 'Nvidia', price: 895.50 },
                 { symbol: 'AVGO', name: 'Broadcom', price: 165.75 },
+                { symbol: 'AMD', name: 'Advanced Micro Devices', price: 185.30 },
+                { symbol: 'QCOM', name: 'Qualcomm', price: 175.50 },
                 // Finance
-                { symbol: 'JPM', name: 'JP Morgan', price: 198.45 },
+                { symbol: 'JPM', name: 'JP Morgan Chase', price: 198.45 },
                 { symbol: 'GS', name: 'Goldman Sachs', price: 398.75 },
                 { symbol: 'BAC', name: 'Bank of America', price: 32.50 },
                 { symbol: 'WFC', name: 'Wells Fargo', price: 58.75 },
+                { symbol: 'C', name: 'Citigroup', price: 52.30 },
                 // Healthcare
                 { symbol: 'JNJ', name: 'Johnson & Johnson', price: 161.25 },
-                { symbol: 'UNH', name: 'UnitedHealth', price: 478.95 },
+                { symbol: 'UNH', name: 'UnitedHealth Group', price: 478.95 },
                 { symbol: 'PFE', name: 'Pfizer', price: 28.40 },
                 { symbol: 'AZN', name: 'AstraZeneca', price: 84.50 },
+                { symbol: 'MRK', name: 'Merck', price: 72.15 },
                 // Energy
                 { symbol: 'XOM', name: 'Exxon Mobil', price: 104.75 },
                 { symbol: 'CVX', name: 'Chevron', price: 162.30 },
                 { symbol: 'COP', name: 'ConocoPhillips', price: 118.50 },
+                { symbol: 'MPC', name: 'Marathon Petroleum', price: 145.80 },
                 // Consumer
                 { symbol: 'WMT', name: 'Walmart', price: 89.75 },
-                { symbol: 'KO', name: 'Coca-Cola', price: 62.45 },
-                { symbol: 'MCD', name: 'McDonald\'s', price: 298.75 },
-                // Communications
-                { symbol: 'VZ', name: 'Verizon', price: 41.80 },
-                { symbol: 'T', name: 'AT&T', price: 18.50 }
+                { symbol: 'KO', name: 'Coca-Cola', price: 62.45 }
             ]
         };
 
         let tradingPairs = TRADING_PAIRS;
 
         // PROFESSIONAL TRADING STRATEGIES
-        class ProTradings {
+        class ProStrategies {
             static Scalping(indicators) {
                 let score = 0;
                 if (indicators.rsi > 50 && indicators.rsi < 70) score += 2;
@@ -786,7 +774,7 @@
             
             if (tradingPairs[market]) {
                 pairSelect.innerHTML = tradingPairs[market]
-                    .map(p => `<option value="${p.symbol}">${p.symbol} - ${p.name} ($${p.price})</option>`)
+                    .map(p => `<option value="${p.symbol}">${p.symbol} - ${p.name}</option>`)
                     .join('');
             }
         }
@@ -906,12 +894,12 @@
 
             // Get active strategies
             const strategies = [];
-            if (document.getElementById('str-scalping').checked) strategies.push(ProTradings.Scalping(indicators));
-            if (document.getElementById('str-daytrading').checked) strategies.push(ProTradings.DayTrading(indicators));
-            if (document.getElementById('str-swingtrading').checked) strategies.push(ProTradings.SwingTrading(indicators));
-            if (document.getElementById('str-momentum').checked) strategies.push(ProTradings.MomentumStrategy(indicators));
-            if (document.getElementById('str-trendfollow').checked) strategies.push(ProTradings.TrendFollowing(indicators));
-            if (document.getElementById('str-meanreversion').checked) strategies.push(ProTradings.MeanReversion(indicators));
+            if (document.getElementById('str-scalping').checked) strategies.push(ProStrategies.Scalping(indicators));
+            if (document.getElementById('str-daytrading').checked) strategies.push(ProStrategies.DayTrading(indicators));
+            if (document.getElementById('str-swingtrading').checked) strategies.push(ProStrategies.SwingTrading(indicators));
+            if (document.getElementById('str-momentum').checked) strategies.push(ProStrategies.MomentumStrategy(indicators));
+            if (document.getElementById('str-trendfollow').checked) strategies.push(ProStrategies.TrendFollowing(indicators));
+            if (document.getElementById('str-meanreversion').checked) strategies.push(ProStrategies.MeanReversion(indicators));
 
             // Calculate signal
             let buyScore = 0, sellScore = 0;
@@ -934,23 +922,23 @@
                 if (ratio > 0.8) {
                     signal = 'STRONG_BUY';
                     confidence = 88 + Math.random() * 12;
-                    recommendation = '🎯 Excellent buy opportunity! All indicators aligned bullish.';
+                    recommendation = '🎯 EXCELLENT BUY! All indicators aligned. This is a prime entry.';
                 } else if (ratio > 0.6) {
                     signal = 'BUY';
                     confidence = 72 + Math.random() * 15;
-                    recommendation = '📈 Bullish signals present. Good entry point.';
+                    recommendation = '📈 Bullish signals detected. Good entry opportunity.';
                 } else if (ratio < 0.2) {
                     signal = 'STRONG_SELL';
                     confidence = 88 + Math.random() * 12;
-                    recommendation = '⚠️ Strong sell signal! Consider exiting positions.';
+                    recommendation = '⚠️ STRONG SELL ALERT! Exit positions immediately.';
                 } else if (ratio < 0.4) {
                     signal = 'SELL';
                     confidence = 72 + Math.random() * 15;
-                    recommendation = '📉 Bearish momentum detected. Risk management advised.';
+                    recommendation = '📉 Bearish momentum confirmed. Exit or tighten stops.';
                 } else {
                     signal = 'HOLD';
                     confidence = 60 + Math.random() * 20;
-                    recommendation = '⏸️ Mixed signals. Wait for clearer direction or apply strategies.';
+                    recommendation = '⏸️ Mixed signals - Wait for confirmed breakout direction.';
                 }
             }
 
@@ -1050,5 +1038,3 @@
     </script>
 </body>
 </html>
-      
-  
