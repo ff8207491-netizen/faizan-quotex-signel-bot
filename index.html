@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Signals Bot - Advanced Market Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            border-bottom: 2px solid #00d4ff;
+        }
+
+        header h1 {
+            font-size: 3em;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #a0a0a0;
+            font-size: 1.1em;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .control-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-panel h2 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #a0a0a0;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid #00d4ff;
+            color: #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .btn-generate {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-generate:active {
+            transform: translateY(0);
+        }
+
+        .signals-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .signal-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #00d4ff;
+            border-radius: 8px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .signal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .signal-card.buy {
+            border-left-color: #00ff88;
+        }
+
+        .signal-card.sell {
+            border-left-color: #ff4444;
+        }
+
+        .signal-card.hold {
+            border-left-color: #ffaa00;
+        }
+
+        .pair-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #00d4ff;
+        }
+
+        .signal-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .signal-badge.buy {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+        }
+
+        .signal-badge.sell {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+        }
+
+        .signal-badge.hold {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+            border: 1px solid #ffaa00;
+        }
+
+        .signal-details {
+            font-size: 0.9em;
+            color: #a0a0a0;
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #0099ff);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .indicators-grid {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.85em;
+        }
+
+        .indicator-item {
+            background: rgba(0, 212, 255, 0.05);
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2em;
+            color: #00d4ff;
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 212, 255, 0.1);
+            border-top: 3px solid #00d4ff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .signals-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Trading Signals Bot</h1>
+            <p>Advanced Technical Analysis & Pattern Recognition</p>
+        </header>
+
+        <div class="stats-section">
+            <div class="stat-box">
+                <div class="stat-number" id="buyCount">0</div>
+                <div class="stat-label">Buy Signals</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="sellCount">0</div>
+                <div class="stat-label">Sell Signals</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="avgConfidence">0%</div>
+                <div class="stat-label">Avg Confidence</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="totalAnalyzed">0</div>
+                <div class="stat-label">Pairs Analyzed</div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="control-panel">
+                <h2>⚙️ Analysis Settings</h2>
+                
+                <div class="form-group">
+                    <label for="market">Market Type</label>
+                    <select id="market" onchange="updatePairs()">
+                        <option value="crypto">Cryptocurrency</option>
+                        <option value="forex">Forex</option>
+                        <option value="otc">OTC/Stocks</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pair">Trading Pair</label>
+                    <select id="pair">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Indicators to Analyze</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-rsi" checked>
+                            <label for="ind-rsi">RSI</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-macd" checked>
+                            <label for="ind-macd">MACD</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-bb" checked>
+                            <label for="ind-bb">Bollinger Bands</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-stoch" checked>
+                            <label for="ind-stoch">Stochastic</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-cci" checked>
+                            <label for="ind-cci">CCI</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-wr" checked>
+                            <label for="ind-wr">Williams %R</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-momentum" checked>
+                            <label for="ind-momentum">Momentum</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-ema" checked>
+                            <label for="ind-ema">EMA</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-sma" checked>
+                            <label for="ind-sma">SMA</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-atr" checked>
+                            <label for="ind-atr">ATR</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pattern Detection</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-head" checked>
+                            <label for="pat-head">Head & Shoulders</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-dtop" checked>
+                            <label for="pat-dtop">Double Top</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-dbottom" checked>
+                            <label for="pat-dbottom">Double Bottom</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-atri" checked>
+                            <label for="pat-atri">Asc. Triangle</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-dtri" checked>
+                            <label for="pat-dtri">Desc. Triangle</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-wedge" checked>
+                            <label for="pat-wedge">Wedge</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-flag" checked>
+                            <label for="pat-flag">Flag</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-pennant" checked>
+                            <label for="pat-pennant">Pennant</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-cup" checked>
+                            <label for="pat-cup">Cup & Handle</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pat-rect" checked>
+                            <label for="pat-rect">Rectangle</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-generate" onclick="generateSignals()">📊 Generate Signals</button>
+            </div>
+
+            <div>
+                <h2 style="color: #00d4ff; margin-bottom: 20px;">📈 Trading Signals</h2>
+                <div class="signals-container" id="signals">
+                    <div class="loading">Select market and click "Generate Signals" to start analysis</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tradingPairs = {};
+        const API_URL = 'http://localhost:5000';
+
+        // Initialize
+        async function init() {
+            await loadTradingPairs();
+            updatePairs();
+        }
+
+        // Load trading pairs
+        async function loadTradingPairs() {
+            try {
+                const response = await fetch(`${API_URL}/api/trading-pairs`);
+                tradingPairs = await response.json();
+                updatePairs();
+            } catch (error) {
+                console.error('Error loading trading pairs:', error);
+                document.getElementById('signals').innerHTML = '<div class="loading">Unable to connect to server</div>';
+            }
+        }
+
+        // Update pair selection
+        function updatePairs() {
+            const market = document.getElementById('market').value;
+            const pairSelect = document.getElementById('pair');
+            
+            if (tradingPairs[market]) {
+                pairSelect.innerHTML = tradingPairs[market]
+                    .map(p => `<option value="${p.symbol}">${p.name} (${p.symbol})</option>`)
+                    .join('');
+            }
+        }
+
+        // Generate signals
+        async function generateSignals() {
+            const market = document.getElementById('market').value;
+            const pair = document.getElementById('pair').value;
+            const signalsDiv = document.getElementById('signals');
+            
+            signalsDiv.innerHTML = '<div class="loading"><div class="spinner"></div><p>Analyzing market data...</p></div>';
+            
+            try {
+                const response = await fetch(`${API_URL}/api/signal/${market}/${pair}`);
+                const data = await response.json();
+                displaySignal(data, signalsDiv);
+                updateStats([data]);
+            } catch (error) {
+                console.error('Error generating signal:', error);
+                signalsDiv.innerHTML = '<div class="loading">Error generating signal. Please check server connection.</div>';
+            }
+        }
+
+        // Display signal
+        function displaySignal(signal, container) {
+            const signalClass = signal.signal.toLowerCase();
+            const confidencePercent = signal.confidence;
+            
+            const indicators = signal.indicators || {};
+            const patterns = signal.patterns || {};
+            
+            const html = `
+                <div class="signal-card ${signalClass}">
+                    <div class="pair-name">${signal.pair}</div>
+                    <div class="signal-badge ${signalClass}">${signal.signal}</div>
+                    <div class="signal-details">
+                        <strong>Current Price:</strong> $${signal.currentPrice?.toFixed(2) || 'N/A'}
+                    </div>
+                    <div class="signal-details" style="margin-top: 10px;">
+                        <strong>Confidence:</strong> ${confidencePercent}%
+                    </div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: ${confidencePercent}%"></div>
+                    </div>
+                    <div class="indicators-grid">
+                        ${Object.entries(indicators).map(([key, value]) => {
+                            let displayValue = value;
+                            if (typeof value === 'object') {
+                                displayValue = value.macd?.toFixed(4) || JSON.stringify(value).substring(0, 20);
+                            } else {
+                                displayValue = typeof value === 'number' ? value.toFixed(2) : value;
+                            }
+                            return `<div class="indicator-item"><strong>${key.toUpperCase()}:</strong> ${displayValue}</div>`;
+                        }).join('')}
+                    </div>
+                    <div style="margin-top: 15px; color: #00d4ff; font-weight: 600;">Patterns Detected:</div>
+                    <div style="font-size: 0.85em; color: #a0a0a0; margin-top: 8px;">
+                        ${Object.entries(patterns).filter(([_, v]) => v === true).length > 0 
+                            ? Object.entries(patterns).filter(([_, v]) => v === true).map(([k, _]) => k).join(', ')
+                            : 'No patterns detected'}
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // Update stats
+        function updateStats(signals) {
+            const buyCount = signals.filter(s => s.signal === 'BUY').length;
+            const sellCount = signals.filter(s => s.signal === 'SELL').length;
+            const avgConfidence = signals.length > 0 
+                ? Math.round(signals.reduce((sum, s) => sum + s.confidence, 0) / signals.length)
+                : 0;
+            
+            document.getElementById('buyCount').textContent = buyCount;
+            document.getElementById('sellCount').textContent = sellCount;
+            document.getElementById('avgConfidence').textContent = avgConfidence + '%';
+            document.getElementById('totalAnalyzed').textContent = signals.length;
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
